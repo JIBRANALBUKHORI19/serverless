@@ -1,9 +1,9 @@
 // pages/tambah-profile/page.js
 import { createClient } from "../utils/supabase/server";
+import TambahProfileClient from "../componentUser/tambahprofile";
 import { redirect } from "next/navigation";
-import EditProfileUser from "../componentUser/editprofil";
 
-export default async function EditProfilePage() {
+export default async function TambahProfilePage() {
   const supabase = await createClient();
   const { data: userData, error: authError } = await supabase.auth.getUser();
 
@@ -11,5 +11,5 @@ export default async function EditProfilePage() {
     redirect("/login");
   }
 
-  return <EditProfileUser />;
+  return <TambahProfileClient />;
 }

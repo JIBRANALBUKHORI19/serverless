@@ -1,11 +1,20 @@
-import ProdukTani from "../../component/cardProduk";
-import supabase from "../../../../utils/supabase";
-import SearchItem from "../../component/searching"
-import Sidebar from "@/app/component/sidebar";
+import ProdukTani from "../../componentUser/cardProduk";
+import SearchItem from "../../componentUser/searching"
+import Sidebar from "../../componentUser/sidebar";
+import { createClient } from "../../utils/supabase/server";
+import { redirect } from "next/navigation";
 
-// export const revalidate = 20;
+export const revalidate = 0;
 
 export default async function ItemByNama({params}) {
+    const supabase = await createClient()
+    const { data, error : authError } = await supabase.auth.getUser();
+    console.log(data);
+    
+    if (authError || !data?.user) {
+      redirect('/login');
+    }
+
   const { kategori } = params;
   const { data : produk, error } = await supabase
     .from("produk")
@@ -33,7 +42,7 @@ export default async function ItemByNama({params}) {
               nama={prdk.nama}
               deskripsi={prdk.deskripsi}
               harga={prdk.harga}
-              stok={prdk.stok}
+              stok={-1}
               gambar={prdk.gambar}
             />
           ))}
