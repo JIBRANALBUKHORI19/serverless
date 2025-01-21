@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from "react";
 import supabase from "../../utils/supabase";
 import styled from "styled-components";
-import SearchBar from "../componentAdmin/SearchBar";
+import SearchBar from "../componentAdmin/searchbar";
 import Link from "next/link";
 
 const ProductGrid = styled.div`
